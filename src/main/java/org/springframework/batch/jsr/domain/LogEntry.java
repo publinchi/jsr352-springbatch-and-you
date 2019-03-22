@@ -2,6 +2,7 @@ package org.springframework.batch.jsr.domain;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 public class LogEntry {
 
@@ -36,7 +37,10 @@ public class LogEntry {
 	}
 	@Override
 	public String toString() {
-		String baseString = ipAddress + "|" + requestedUrl + "|" + new SimpleDateFormat("MM/dd/yyyy hh:mm:ss Z").format(viewDate);
+		String date = null;
+		if(viewDate != null)
+			date = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss Z", new Locale(Locale.ENGLISH.getLanguage())).format(viewDate);
+		String baseString = ipAddress + "|" + requestedUrl + "|" + date;
 
 		if(countryCode != null) {
 			baseString = baseString + "|" + countryCode;
