@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns="http://www.springframework.org/schema/beans">
+	   xmlns="http://www.springframework.org/schema/beans">
 
 	<bean id="fileSplittingBatchlet" class="org.springframework.batch.core.step.tasklet.SystemCommandTasklet" scope="step">
 		<property name="command" value="split -a 5 -l 10000 #{jobParameters['inputFile']} #{jobParameters['stagingDirectory']}"/>
@@ -34,12 +34,12 @@
 	</bean>
 
 	<bean id="jdbcWriter" class="org.springframework.batch.item.database.JdbcBatchItemWriter">
-        <property name="itemSqlParameterSourceProvider">
-            <bean class="org.springframework.batch.item.database.BeanPropertyItemSqlParameterSourceProvider" />
-        </property>
-        <property name="sql" value="INSERT INTO logEntry (ip_address, requested_url, country_code, view_date) VALUES(:ipAddress, :requestedUrl, :countryCode, :viewDate)" />
-        <property name="dataSource" ref="dataSource" />
-    </bean>
+		<property name="itemSqlParameterSourceProvider">
+			<bean class="org.springframework.batch.item.database.BeanPropertyItemSqlParameterSourceProvider" />
+		</property>
+		<property name="sql" value="INSERT INTO logEntry (ip_address, requested_url, country_code, view_date) VALUES(:ipAddress, :requestedUrl, :countryCode, :viewDate)" />
+		<property name="dataSource" ref="dataSource" />
+	</bean>
 
 	<job id="logAnalysis" xmlns="http://xmlns.jcp.org/xml/ns/javaee" version="1.0">
 		<step id="split" next="import">
@@ -49,7 +49,7 @@
 			<batchlet ref="fileSplittingBatchlet"/>
 		</step>
 		<step id="import" next="report">
-			<chunk item-count="10000" skip-limit="10000000">
+			<chunk item-count="10000" skip-limit="10000">
 				<reader ref="logReader"/>
 				<processor ref="org.springframework.batch.jsr.chunk.GeocodingItemProcessor"/>
 				<writer ref="jdbcWriter"/>
