@@ -30,7 +30,7 @@ public class ReportBatchlet implements Batchlet {
 	public DataSource dataSource;
 	private Configuration cfg;
 
-	private static final String QUERY = "select country_code, count(*) as qty from logentry group by country_code order by qty";
+	private static final String QUERY = "select country_code, count(*) as qty from logEntry group by country_code order by qty";
 
 	@Override
 	public String process() throws Exception {
