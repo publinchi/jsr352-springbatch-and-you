@@ -9,7 +9,7 @@
 		</batchlet>
 	</step>
 	<step id="import" next="report">
-		<chunk item-count="10000" skip-limit="10000000">
+		<chunk item-count="10000" skip-limit="10000">
 			<reader ref="org.springframework.batch.jsr.chunk.LogReadingItemReader">
 				<properties>
 					<property name="directoryName" value="#{jobParameters['stagingDirectory']}"/>
