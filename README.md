@@ -14,13 +14,13 @@ By Default this will run using HSQLDB.  The configuration provided also offers M
 The Raw JSR version
 
 * From the root of the project, execute `mvn clean install -P jsr` 
-* From the target directory execute `java -jar jsr-talk-1.0.0.BUILD-SNAPSHOT.jar logAnalysis inputFile=/tmp/jsr_temp/swk_small.log stagingDirectory=/tmp/jsr_temp/out/`
+* From the target directory execute `java -jar target/jsr-talk-1.0.0.BUILD-SNAPSHOT.jar logAnalysis inputFile=/tmp/jsr_temp/swk_small.log stagingDirectory=/tmp/jsr_temp/out/`
 
 Spring Version 
 
 * From the root of the project, execute `mvn clean install -P jsr`
 * For the SystemCommandTasklet, we need to be sure that the staging directory has been created (the JSR batchlet checks and creates it if it is not).
-* From the target directory execute `java -jar jsr-talk-1.0.0.BUILD-SNAPSHOT.jar logAnalysisWithSpring inputFile=/tmp/jsr_temp/swk_small.log stagingDirectory=/tmp/jsr_temp/out/`
+* From the target directory execute `java -jar target/jsr-talk-1.0.0.BUILD-SNAPSHOT.jar logAnalysisWithSpring inputFile=/tmp/jsr_temp/swk_small.log stagingDirectory=/tmp/jsr_temp/out/`
 
 Both versions
 
