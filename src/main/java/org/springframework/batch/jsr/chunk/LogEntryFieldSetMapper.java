@@ -2,6 +2,7 @@ package org.springframework.batch.jsr.chunk;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 import org.springframework.batch.item.file.mapping.FieldSetMapper;
 import org.springframework.batch.item.file.transform.FieldSet;
@@ -10,20 +11,21 @@ import org.springframework.validation.BindException;
 
 public class LogEntryFieldSetMapper implements FieldSetMapper<LogEntry> {
 
-	@Override
-	public LogEntry mapFieldSet(FieldSet fieldSet) throws BindException {
-		SimpleDateFormat formatter = new SimpleDateFormat("dd/MMM/yyyy:kk:mm:ss Z");
+    @Override
+    public LogEntry mapFieldSet(FieldSet fieldSet) throws BindException {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MMM/yyyy:kk:mm:ss Z",
+                new Locale(Locale.ENGLISH.getLanguage()));
 
-		LogEntry entry = new LogEntry();
+        LogEntry entry = new LogEntry();
 
-		entry.setIpAddress(fieldSet.readString(0));
-		try {
-			entry.setViewDate(formatter.parse(fieldSet.readString(1)));
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-		entry.setRequestedUrl(fieldSet.readString(2));
+        entry.setIpAddress(fieldSet.readString(0));
+        try {
+            entry.setViewDate(formatter.parse(fieldSet.readString(1)));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        entry.setRequestedUrl(fieldSet.readString(2));
 
-		return entry;
-	}
+        return entry;
+    }
 }
