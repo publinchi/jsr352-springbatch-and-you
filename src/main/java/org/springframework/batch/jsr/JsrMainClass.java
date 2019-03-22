@@ -11,6 +11,8 @@ public class JsrMainClass {
 	 * @param args
 	 */
 	public static void main(String[] args) {
+		System.setProperty("ENVIRONMENT", "mysql");
+
 		JobOperator jobOperator = BatchRuntime.getJobOperator();
 
 		Properties jobParameters = new Properties();
