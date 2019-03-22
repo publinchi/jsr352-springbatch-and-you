@@ -12,12 +12,12 @@
         configurations as well as JSR-352 related sample code.
     </description>
     <properties>
-        <spring.framework.version>3.2.0.RELEASE</spring.framework.version>
-        <spring.batch.version>3.0.0.M2</spring.batch.version>
+        <spring.framework.version>5.1.5.RELEASE</spring.framework.version>
+        <spring.batch.version>4.1.1.RELEASE</spring.batch.version>
         <dependency.locations.enabled>false</dependency.locations.enabled>
         <junit.version>4.10</junit.version>
-        <compiler.target.version>1.6</compiler.target.version>
-        <compiler.source.version>1.6</compiler.source.version>
+        <compiler.target.version>1.8</compiler.target.version>
+        <compiler.source.version>1.8</compiler.source.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
     <profiles>
@@ -121,14 +121,14 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>commons-dbcp</groupId>
-            <artifactId>commons-dbcp</artifactId>
-            <version>1.2.2</version>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-dbcp2</artifactId>
+            <version>2.6.0</version>
         </dependency>
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
-            <version>1.5.8</version>
+            <version>1.7.26</version>
             <optional>true</optional>
         </dependency>
         <dependency>
