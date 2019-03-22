@@ -6,6 +6,7 @@ import java.io.FileReader;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -34,7 +35,7 @@ public class LogReadingItemReader implements ItemReader {
 	private static final String DATE_REG_EX = "\\d+/\\w+/\\d+:\\d+:\\d+:\\d+ [+-]\\d+";
 	private static final String FILE_NAME_REG_EX = "(/[^/ ]*)+";
 	private Pattern pattern = Pattern.compile("(" + IP_REG_EX + ") - - \\[(" + DATE_REG_EX + ")\\] \"\\w+ (" + FILE_NAME_REG_EX + ")");
-	private SimpleDateFormat formatter = new SimpleDateFormat("dd/MMM/yyyy:kk:mm:ss Z");
+	private SimpleDateFormat formatter = new SimpleDateFormat("dd/MMM/yyyy:kk:mm:ss Z", new Locale(Locale.ENGLISH.getLanguage()));
 
 	@Override
 	@SuppressWarnings("unchecked")
@@ -66,27 +67,28 @@ public class LogReadingItemReader implements ItemReader {
 	public Object readItem() throws Exception {
 		LogEntry entry = null;
 
-		while(filesToRead.size() > 0) {
-			if(reader == null) {
-				curFile = filesToRead.iterator().next();
-				if(curFile != null) {
-					reader = new BufferedReader(new FileReader(new File(curFile)));
-				} else {
-					return null;
-				}
-			}
+		if(filesToRead.isEmpty()) {
+			return null;
+		}
 
-			String line = reader.readLine();
-
-			if(line != null) {
-				entry = parseLine(line);
-				break;
+		if(reader == null) {
+			curFile = filesToRead.iterator().next();
+			if(curFile != null) {
+				reader = new BufferedReader(new FileReader(new File(curFile)));
 			} else {
-				filesToRead.remove(curFile);
-				filesRead.add(curFile);
-				reader.close();
-				reader = null;
+				return null;
 			}
+		}
+
+		String line = reader.readLine();
+
+		if(line != null) {
+			entry = parseLine(line);
+		} else {
+			filesToRead.remove(curFile);
+			filesRead.add(curFile);
+			reader.close();
+			reader = null;
 		}
 
 		return entry;
