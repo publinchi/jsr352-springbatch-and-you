@@ -41,7 +41,7 @@
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 
-	<job id="logAnalysis" xmlns="http://xmlns.jcp.org/xml/ns/javaee" version="1.0">
+	<job id="logAnalysisWithSpring" xmlns="http://xmlns.jcp.org/xml/ns/javaee" version="1.0">
 		<step id="split" next="import">
 			<listeners>
 				<listener ref="stepListener"/>
