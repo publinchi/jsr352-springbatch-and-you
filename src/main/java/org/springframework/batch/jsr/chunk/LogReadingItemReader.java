@@ -67,28 +67,27 @@ public class LogReadingItemReader implements ItemReader {
 	public Object readItem() throws Exception {
 		LogEntry entry = null;
 
-		if(filesToRead.isEmpty()) {
-			return null;
-		}
-
-		if(reader == null) {
-			curFile = filesToRead.iterator().next();
-			if(curFile != null) {
-				reader = new BufferedReader(new FileReader(new File(curFile)));
-			} else {
-				return null;
+		while(filesToRead.size() > 0) {
+			if (reader == null) {
+				curFile = filesToRead.iterator().next();
+				if (curFile != null) {
+					reader = new BufferedReader(new FileReader(new File(curFile)));
+				} else {
+					return null;
+				}
 			}
-		}
 
-		String line = reader.readLine();
+			String line = reader.readLine();
 
-		if(line != null) {
-			entry = parseLine(line);
-		} else {
-			filesToRead.remove(curFile);
-			filesRead.add(curFile);
-			reader.close();
-			reader = null;
+			if (line != null) {
+				entry = parseLine(line);
+				break;
+			} else {
+				filesToRead.remove(curFile);
+				filesRead.add(curFile);
+				reader.close();
+				reader = null;
+			}
 		}
 
 		return entry;
